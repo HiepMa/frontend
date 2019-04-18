@@ -3,9 +3,8 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders, Http
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
 import {Router} from '@angular/router'
+import {tap} from 'rxjs/operators/tap'
 import { AuthService } from "./services/auth.service";
-import { tap } from "rxjs/operators";
-import * as CryptoJS from 'crypto-js';
 @Injectable()
 
 export class MyInterceptor implements HttpInterceptor{
@@ -14,7 +13,7 @@ export class MyInterceptor implements HttpInterceptor{
 
         const strCookie = this.cookieSerivce.get(btoa('userInfo'));
         if(strCookie){
-            const LoginResult = JSON.parse(atob(atob(strCookie)));
+            const LoginResult = JSON.parse(atob(strCookie));
             if(LoginResult){
                 const token = LoginResult.token;
                 const req = request.clone({
@@ -24,7 +23,7 @@ export class MyInterceptor implements HttpInterceptor{
                     tap(event=>{},err =>{
                         if(err instanceof HttpErrorResponse){
                             if(this.router.url!=='/login'&&(err.status===401)){
-                                window.alert("Session expires! Please log in again!")
+                                window.alert("Phiên làm việc hết hạn! vui lòng đăng nhập lại!")
                                 this.authService.setLoggedIn(false);
                                 this.router.navigate(['/login']);
                                 window.location.reload();

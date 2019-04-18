@@ -1,71 +1,86 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 import { AppComponent } from './app.component';
+
+// Import containers
+import { DefaultLayoutComponent } from './containers';
+
+import { P404Component } from './views/error/404.component';
+import { P500Component } from './views/error/500.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { ExamsComponent } from './views/bank/exams.component';
+
+const APP_CONTAINERS = [
+  DefaultLayoutComponent
+];
+
+import {
+  AppAsideModule,
+  AppBreadcrumbModule,
+  AppHeaderModule,
+  AppFooterModule,
+  AppSidebarModule,
+} from '@coreui/angular';
+
+// Import routing module
+import { AppRoutingModule } from './app.routing';
+
+// Import 3rd party components
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { ApiService } from './services/api.service';
-
-import { AppRoutes } from './app.routing';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-// import { NgXCreditCardsModule } from 'ngx-credit-cards';
-import { CreditCardDirectivesModule } from 'angular-cc-library';
-
-import { Routes, RouterModule} from '@angular/router';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { ItemComponent } from './components/item/item.component';
-import { ListItemComponent } from './components/list-item/list-item.component';
-import { CartComponent } from './components/cart/cart.component';
-import { HeaderComponent} from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { from } from 'rxjs';
-import { PaymentComponent } from './components/payment/payment.component';
-import { P404Component } from './components/error/404.component';
-import { P500Component } from './components/error/500.component';
-import { LoginComponent } from './components/login/login.component';
-
-
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import { MyInterceptor } from './app.interceptor';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AppAsideModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AppBreadcrumbModule.forRoot(),
+    AppFooterModule,
+    AppHeaderModule,
+    AppSidebarModule,
+    PerfectScrollbarModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule,
+    HttpClientModule,
+    LoadingBarHttpClientModule,
+  ],
   declarations: [
     AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ItemComponent,
-    ListItemComponent,
-    CartComponent,
-    PaymentComponent,
+    ...APP_CONTAINERS,
     P404Component,
     P500Component,
     LoginComponent,
-  ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,  
-    FormsModule,
-    HttpClientModule,
-    LoadingBarHttpClientModule,
-    RouterModule.forRoot(AppRoutes),
-    NgxPaginationModule,
-    MatSnackBarModule,
-    CreditCardDirectivesModule,
-    // NgXCreditCardsModule,
-    BrowserAnimationsModule,MatButtonModule, MatCheckboxModule,
+    RegisterComponent,
+    ExamsComponent
   ],
   providers: [
-    {provide:HTTP_INTERCEPTORS,useClass: MyInterceptor,multi:true},
     ApiService,
-    CookieService,
     AuthService,
+    CookieService,
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

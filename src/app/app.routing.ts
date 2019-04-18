@@ -1,42 +1,91 @@
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ItemComponent } from './components/item/item.component';
-import { ListItemComponent } from './components/list-item/list-item.component';
-import { CartComponent } from './components/cart/cart.component';
-import { PaymentComponent } from './components/payment/payment.component';
-import { LoginComponent } from './components/login/login.component';
-import { P404Component } from './components/error/404.component';
-import { P500Component } from './components/error/500.component';
-import { AuthGuard } from './auth.guard';
 
-export const AppRoutes: Routes = [
-    {
-        path: '',
-        component: ListItemComponent,
-    },
-    {
-        path: 'item/:ref',
-        component: ItemComponent,
-    },
-    {
-        path: 'cart',
-        component: CartComponent,
-        canActivate : [AuthGuard],
-    },
-    {
-        path: 'login',
-        component: LoginComponent,
-    },
-    {
-        path: 'pay',
-        component: PaymentComponent,
-        canActivate : [AuthGuard],
-    },
-    {
-        path: '404',
-        component: P404Component,
-    },
-    {
-        path: '500',
-        component: P500Component,
+// Import Containers
+import { DefaultLayoutComponent } from './containers';
+
+import { P404Component } from './views/error/404.component';
+import { P500Component } from './views/error/500.component';
+import { LoginComponent } from './views/login/login.component';
+import { RegisterComponent } from './views/register/register.component';
+import { AuthGuard} from './auth.guard';
+
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
+    path: '404',
+    component: P404Component,
+    data: {
+      title: 'Page 404'
     }
-]
+  },
+  {
+    path: '500',
+    component: P500Component,
+    data: {
+      title: 'Page 500'
+    }
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {
+      title: 'Login Page'
+    }
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: {
+      title: 'Register Page'
+    }
+  },
+  {
+    path: '',
+    component: DefaultLayoutComponent,
+    data: {
+      title: 'Home'
+    },
+    // canActivate : [AuthGuard],
+    children: [
+      {
+        path: 'category',
+        loadChildren: './views/category/category.module#CategoryModule'
+      },
+      {
+        path: 'bank',
+        loadChildren: './views/bank/bank.module#BankModule'
+      },
+      {
+        path: 'charts',
+        loadChildren: './views/chartjs/chartjs.module#ChartJSModule'
+      },
+      {
+        path: 'dashboard',
+        loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'notifications',
+        loadChildren: './views/notifications/notifications.module#NotificationsModule'
+      },
+      {
+        path: 'theme',
+        loadChildren: './views/theme/theme.module#ThemeModule'
+      },
+      {
+        path: 'widgets',
+        loadChildren: './views/widgets/widgets.module#WidgetsModule'
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ]
+})
+export class AppRoutingModule {}
