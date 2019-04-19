@@ -73,7 +73,7 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     P500Component,
     LoginComponent,
     RegisterComponent,
-    ExamsComponent
+    ExamsComponent  
   ],
   providers: [
     ApiService,
