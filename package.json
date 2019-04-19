@@ -42,6 +42,7 @@
     "@coreui/coreui": "^2.0.4",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/icons": "0.3.0",
+    "@ngx-loading-bar/core": "^4.2.0",
     "@ngx-loading-bar/http-client": "^4.2.0",
     "@swimlane/ngx-datatable": "^14.0.0",
     "angular-datatables": "^7.0.0",
