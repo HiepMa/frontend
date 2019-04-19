@@ -12,6 +12,7 @@
                 <div class="form-group row">
                     <p for="type" class="col-md-2" style="padding: 6px 12px; text-align: center;">Subject:</p>
                     <select class="form-control col-md-6" id="type" [ngModel]="selectedSub" (change)="filterBySubName($event.target.value)">
+                        <option [ngValue]="all" selected>All</option>
                         <option *ngFor = "let monHoc of monhocList" [ngValue]="monHoc.ten">{{monHoc.ten}}</option>
                     </select>
                 </div>
