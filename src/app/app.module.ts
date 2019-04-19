@@ -40,13 +40,13 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
+// import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+// import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 @NgModule({
   imports: [
@@ -62,9 +62,9 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
+    // ChartsModule,
     HttpClientModule,
-    LoadingBarHttpClientModule,
+    //LoadingBarHttpClientModule,
   ],
   declarations: [
     AppComponent,
