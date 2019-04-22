@@ -51,6 +51,7 @@
     "datatables.net-buttons": "^1.5.3",
     "datatables.net-buttons-dt": "^1.5.3",
     "datatables.net-dt": "^1.10.19",
+    "express": "^4.16.4",
     "flag-icon-css": "^3.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
